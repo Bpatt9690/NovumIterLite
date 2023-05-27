@@ -5,6 +5,15 @@ import board
 import adafruit_bno055
 import adafruit_ltr390
 from bmp280 import BMP280
+import sys
+import Adafruit_DHT
+
+
+
+def DHTTest():
+	humidity, temperature = Adafruit_DHT.read_retry(11, 4)
+	print('Temp: {0:0.1f} C  Humidity: {1:0.1f} %'.format(temperature, humidity))
+
 
 
 def ltr390Test():
@@ -104,4 +113,6 @@ if __name__ == '__main__':
 		ltr390Test()
 		print("\n-------------------------------------------------------------------------\n")
 		print()
+		DHTTest()
+		print("\n-------------------------------------------------------------------------\n")
 		time.sleep(5)
