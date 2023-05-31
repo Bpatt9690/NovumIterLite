@@ -17,8 +17,8 @@ def gpsTest():
 
 	while True:
 		line = gps.readline()
-		time.sleep(1)
-
+		print(line)
+	
 		try:
 			line = line.decode("utf-8")
 			sline = line.split(",")

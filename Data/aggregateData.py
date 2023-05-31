@@ -7,11 +7,29 @@ import adafruit_ltr390
 from bmp280 import BMP280
 import sys
 import Adafruit_DHT
+import threading
+import subprocess
+
 
 class data:
 
 	def __init__(self):
 		pass
+
+	def onboardCamera(self):
+		# Command to execute
+		command = "libcamera-jpeg -t 5000 -o test.jpg"
+		subprocess.Popen(command, shell=True)
+		time.sleep(20)
+		#Remove file after sending
+
+	def cameraThread(self):
+		# Create a thread to run the command
+	    thread = threading.Thread(target=self.onboardCamera)
+	    thread.start()
+
+	    # Wait for the thread to finish
+	    thread.join()
 
 	def DHTData(self):
 		humidity, temperature = Adafruit_DHT.read_retry(11, 4)
@@ -109,5 +127,8 @@ class data:
 		dataDict['Pressure'] = pressure
 		dataDict['GPS Data'] = gps_dict
 		print(dataDict)
+		time.sleep(5)
+		self.cameraThread()
+
 
 
