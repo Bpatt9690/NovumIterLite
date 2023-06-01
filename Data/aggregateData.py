@@ -29,7 +29,19 @@ class data:
 	    thread.start()
 
 	    # Wait for the thread to finish
-	    thread.join()
+	    thread.join(20)
+
+	    command = "killall libcamera-jpeg"
+	    subprocess.Popen(command, shell=True)
+	    time.sleep(1)
+
+	    command = "killall /bin/sh -c libcamera"
+	    subprocess.Popen(command, shell=True)
+	    time.sleep(1)
+
+	    while thread.is_alive():
+	    	print('Waiting for thread to die')
+	    	time.sleep(5)
 
 	def DHTData(self):
 		humidity, temperature = Adafruit_DHT.read_retry(11, 4)
